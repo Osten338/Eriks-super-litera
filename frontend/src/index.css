@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.diff-insert { @apply text-diff-insert; }
+.diff-delete { @apply text-diff-delete; }
+.diff-move { @apply text-diff-move; }
+.line-through { text-decoration: line-through; }
+
+html, body, #root { height: 100%; }
+
+
