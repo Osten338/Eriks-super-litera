@@ -1,16 +1,19 @@
+import Button from './atoms/Button'
+
 type Props = {
   onCompare: () => void
   onExportPdf: () => void
   onExportDocx: () => void
-  disabled?: boolean
+  disabledCompare?: boolean
+  disabledExport?: boolean
 }
 
-export function Toolbar({ onCompare, onExportPdf, onExportDocx, disabled }: Props) {
+export function Toolbar({ onCompare, onExportPdf, onExportDocx, disabledCompare, disabledExport }: Props) {
   return (
     <div className="flex gap-2">
-      <button className="px-3 py-1.5 bg-black text-white rounded text-sm" onClick={onCompare} disabled={disabled}>Compare</button>
-      <button className="px-3 py-1.5 border rounded text-sm" onClick={onExportPdf} disabled={disabled}>Export PDF</button>
-      <button className="px-3 py-1.5 border rounded text-sm" onClick={onExportDocx} disabled={disabled}>Export Word</button>
+      <Button onClick={onCompare} disabled={disabledCompare}>Compare</Button>
+      <Button variant="secondary" onClick={onExportPdf} disabled={disabledExport}>Export PDF</Button>
+      <Button variant="secondary" onClick={onExportDocx} disabled={disabledExport}>Export Word</Button>
     </div>
   )
 }

@@ -1,4 +1,5 @@
-import { useRef } from 'react'
+import { useMemo } from 'react'
+import UploadCard from './molecules/UploadCard'
 
 type Props = {
   original?: File | null
@@ -7,31 +8,23 @@ type Props = {
 }
 
 export function UploadPane({ original, modified, onChange }: Props) {
-  const originalRef = useRef<HTMLInputElement>(null)
-  const modifiedRef = useRef<HTMLInputElement>(null)
+  const originalStatus = useMemo(() => (original ? 'ready' : 'idle'), [original])
+  const modifiedStatus = useMemo(() => (modified ? 'ready' : 'idle'), [modified])
 
   return (
-    <div className="space-y-4">
-      <div>
-        <label className="text-sm font-medium">Original (.docx/.pdf)</label>
-        <input
-          ref={originalRef}
-          type="file"
-          accept=".docx,.pdf"
-          className="mt-1 block w-full text-sm"
-          onChange={(e) => onChange('original', e.target.files?.[0] || null)}
-        />
-      </div>
-      <div>
-        <label className="text-sm font-medium">Modified (.docx/.pdf)</label>
-        <input
-          ref={modifiedRef}
-          type="file"
-          accept=".docx,.pdf"
-          className="mt-1 block w-full text-sm"
-          onChange={(e) => onChange('modified', e.target.files?.[0] || null)}
-        />
-      </div>
+    <div className="space-y-3">
+      <UploadCard
+        label="Original (.docx/.pdf)"
+        file={original || undefined}
+        status={originalStatus}
+        onFileSelect={(f) => onChange('original', f)}
+      />
+      <UploadCard
+        label="Modified (.docx/.pdf)"
+        file={modified || undefined}
+        status={modifiedStatus}
+        onFileSelect={(f) => onChange('modified', f)}
+      />
     </div>
   )
 }
